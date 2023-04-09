@@ -3,3 +3,4 @@ golangci-lint 1.51.2
 goreleaser 1.16.2
 pre-commit 3.1.1
 shfmt 3.6.0
+nodejs 19.8.1

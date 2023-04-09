@@ -102,4 +102,4 @@ jobs:
 
       - name: Run binary
         run: |
-          ./dist/<PROJECT_NAME>t_linux_amd64_v1/<PROJECT_NAME> --version
+          ./dist/gha-monitor_linux_amd64_v1/gha-monitor --version
