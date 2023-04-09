@@ -3,9 +3,7 @@
  SPDX-License-Identifier: Apache-2.0
  -->
 
-# <PROJECT_NAME>
-
-Replace `<PROJECT_NAME>` with the name of the project.
+# GitHub Actions Monitor
 
 ## Prerequisites
 
@@ -38,7 +36,7 @@ make test
 
 ### Build
 
-The binary for your OS will be placed in `./dist`, e.g. `./dist/<PROJECT_NAME>_darwin_arm64/<PROJECT_NAME>`:
+The binary for your OS will be placed in `./dist`, e.g. `./dist/status-writer-action_darwin_arm64/status-writer-action`:
 
 ```bash
 make build-snapshot

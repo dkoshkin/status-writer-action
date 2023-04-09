@@ -1,0 +1,12 @@
+# Copyright 2023 Dimitri Koshkin. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+name: 'Github Actions Monitor'
+description: 'Push github actions status to a monitoring system'
+inputs:
+  keys:
+    description: 'A comma separated list of key=value pairs to be added to the metric'
+    required: true
+runs:
+  using: 'node16'
+  main: 'invoke-binary.js'

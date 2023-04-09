@@ -1,7 +1,7 @@
 # Copyright 2023 Dimitri Koshkin. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-project_name: <PROJECT_NAME>
+project_name: status-writer-action
 
 changelog:
   use: github
@@ -21,10 +21,10 @@ changelog:
 release:
   footer: |
     ### Summary
-    **Full Changelog**: https://github.com/dkoshkin/<PROJECT_NAME>/compare/{{ .PreviousTag }}...{{ .Tag }}
+    **Full Changelog**: https://github.com/dkoshkin/status-writer-action/compare/{{ .PreviousTag }}...{{ .Tag }}
 
 builds:
-  - id: <PROJECT_NAME>
+  - id: status-writer-action
     env:
       - CGO_ENABLED=0
     flags:
@@ -55,7 +55,7 @@ archives:
       - goos: windows
         format: zip
     builds:
-      - <PROJECT_NAME>
+      - status-writer-action
     rlcp: true
 checksum:
   name_template: 'checksums.txt'

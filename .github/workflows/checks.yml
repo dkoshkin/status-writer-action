@@ -102,4 +102,9 @@ jobs:
 
       - name: Run binary
         run: |
-          ./dist/<PROJECT_NAME>t_linux_amd64_v1/<PROJECT_NAME> --version
+          ./dist/status-writer-action_linux_amd64_v1/status-writer-action --version
+
+      - name: Test status-writer-action action
+        uses: ./
+        with:
+          keys: "workflow=checks,job=build-and-run"
