@@ -14,7 +14,7 @@ import (
 func TestNewFromInputs(t *testing.T) {
 	// ...
 	actionLog := bytes.NewBuffer(nil)
-	keys := "workflow=checks,job=gha-monitor"
+	keys := "workflow=checks,job=status-writer-action"
 	envMap := map[string]string{
 		"INPUT_KEYS": keys,
 	}
@@ -30,7 +30,7 @@ func TestNewFromInputs(t *testing.T) {
 	assert.Equal(t, "", actionLog.String())
 	expected := map[string]string{
 		"workflow": "checks",
-		"job":      "gha-monitor",
+		"job":      "status-writer-action",
 	}
 	assert.Equal(t, cfg.Keys, expected)
 }

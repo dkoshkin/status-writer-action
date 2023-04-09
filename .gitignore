@@ -26,3 +26,5 @@ dist/
 
 *.tar.gz
 *.tar
+
+node_modules/

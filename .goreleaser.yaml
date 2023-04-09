@@ -1,7 +1,7 @@
 # Copyright 2023 Dimitri Koshkin. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-project_name: gha-monitor
+project_name: status-writer-action
 
 changelog:
   use: github
@@ -21,10 +21,10 @@ changelog:
 release:
   footer: |
     ### Summary
-    **Full Changelog**: https://github.com/dkoshkin/gha-monitor/compare/{{ .PreviousTag }}...{{ .Tag }}
+    **Full Changelog**: https://github.com/dkoshkin/status-writer-action/compare/{{ .PreviousTag }}...{{ .Tag }}
 
 builds:
-  - id: gha-monitor
+  - id: status-writer-action
     env:
       - CGO_ENABLED=0
     flags:
@@ -55,7 +55,7 @@ archives:
       - goos: windows
         format: zip
     builds:
-      - gha-monitor
+      - status-writer-action
     rlcp: true
 checksum:
   name_template: 'checksums.txt'

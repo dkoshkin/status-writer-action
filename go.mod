@@ -1,7 +1,7 @@
 // Copyright 2023 Dimitri Koshkin. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-module github.com/dkoshkin/gha-monitor
+module github.com/dkoshkin/status-writer-action
 
 go 1.20
 

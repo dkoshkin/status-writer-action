@@ -102,12 +102,9 @@ jobs:
 
       - name: Run binary
         run: |
-          ./dist/gha-monitor_linux_amd64_v1/gha-monitor --version
+          ./dist/status-writer-action_linux_amd64_v1/status-writer-action --version
 
-  gha-monitor:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Test gha-monitor action
-        uses: dkoshkin/gha-monitor-action@main
+      - name: Test status-writer-action action
+        uses: ./
         with:
-          keys: "workflow=checks,job=gha-monitor"
+          keys: "workflow=checks,job=build-and-run"

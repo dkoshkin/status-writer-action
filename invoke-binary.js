@@ -9,22 +9,22 @@ function chooseBinary() {
     const arch = os.arch()
 
     if (platform === 'linux' && arch === 'x64') {
-        return `gha-monitor_linux_amd64_v1/gha-monitor`
+        return `status-writer-action_linux_amd64_v1/status-writer-action`
     }
     if (platform === 'linux' && arch === 'arm64') {
-        return `gha-monitor_linux_arm64/gha-monitor`
+        return `status-writer-action_linux_arm64/status-writer-action`
     }
     if (platform === 'darwin' && arch === 'x64') {
-        return `gha-monitor_darwin_adm64_v1/gha-monitor`
+        return `status-writer-action_darwin_adm64_v1/status-writer-action`
     }
     if (platform === 'darwin' && arch === 'arm64') {
-        return `gha-monitor_darwin_arm64/gha-monitor`
+        return `status-writer-action_darwin_arm64/status-writer-action`
     }
     if (platform === 'windows' && arch === 'x64') {
-        return `gha-monitor_windows_adm64_v1/gha-monitor.exe`
+        return `status-writer-action_windows_adm64_v1/status-writer-action.exe`
     }
     if (platform === 'windows' && arch === 'arm64') {
-        return `gha-monitor_windows_arm64/gha-monitor.exe`
+        return `status-writer-action_windows_arm64/status-writer-action.exe`
     }
 
     console.error(`Unsupported platform (${platform}) and architecture (${arch})`)

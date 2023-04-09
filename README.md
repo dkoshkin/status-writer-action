@@ -36,7 +36,7 @@ make test
 
 ### Build
 
-The binary for your OS will be placed in `./dist`, e.g. `./dist/gha-monitor_darwin_arm64/gha-monitor`:
+The binary for your OS will be placed in `./dist`, e.g. `./dist/status-writer-action_darwin_arm64/status-writer-action`:
 
 ```bash
 make build-snapshot

@@ -10,8 +10,8 @@ import (
 
 	"github.com/sethvargo/go-githubactions"
 
-	"github.com/dkoshkin/gha-monitor/pkg/pusher"
-	"github.com/dkoshkin/gha-monitor/pkg/version"
+	"github.com/dkoshkin/status-writer-action/pkg/pusher"
+	"github.com/dkoshkin/status-writer-action/pkg/version"
 )
 
 func run() error {
