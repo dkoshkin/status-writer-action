@@ -1,45 +1,38 @@
 const childProcess = require('child_process')
 const os = require('os')
+const fs = require("fs")
 const process = require('process')
-
-const VERSION = 'v0.1.0'
+const core = require('@actions/core');
 
 function chooseBinary() {
     const platform = os.platform()
     const arch = os.arch()
 
+    // otherwise assume it's a released version
     if (platform === 'linux' && arch === 'x64') {
-        return `status-writer-action_linux_amd64_v1/status-writer-action`
+        return `bin/status-writer-action_linux_amd64`
     }
     if (platform === 'linux' && arch === 'arm64') {
-        return `status-writer-action_linux_arm64/status-writer-action`
+        return `bin/status-writer-action_linux_arm64`
     }
     if (platform === 'darwin' && arch === 'x64') {
-        return `status-writer-action_darwin_adm64_v1/status-writer-action`
+        return `bin/status-writer-action_darwin_adm64`
     }
     if (platform === 'darwin' && arch === 'arm64') {
-        return `status-writer-action_darwin_arm64/status-writer-action`
-    }
-    if (platform === 'windows' && arch === 'x64') {
-        return `status-writer-action_windows_adm64_v1/status-writer-action.exe`
-    }
-    if (platform === 'windows' && arch === 'arm64') {
-        return `status-writer-action_windows_arm64/status-writer-action.exe`
+        return `bin/status-writer-action_darwin_arm64`
     }
 
-    console.error(`Unsupported platform (${platform}) and architecture (${arch})`)
-    process.exit(1)
+    core.setFailed(`Unsupported platform (${platform}) and architecture (${arch})`)
 }
 
 function main() {
     const binary = chooseBinary()
-    const mainScript = `${__dirname}/dist/${binary}`
+    const mainScript = `${__dirname}/${binary}`
     const spawnSyncReturns = childProcess.spawnSync(mainScript, { stdio: 'inherit' })
     const status = spawnSyncReturns.status
-    if (typeof status === 'number') {
-        process.exit(status)
+    if (status !== 0) {
+        core.setFailed(spawnSyncReturns.error)
     }
-    process.exit(1)
 }
 
 if (require.main === module) {

@@ -2,6 +2,7 @@
   "name": "status-writer-action-action",
   "version": "1.0.0",
   "dependencies": {
+    "@actions/core": "^1.10.0",
     "process": "^0.11.10"
   }
 }

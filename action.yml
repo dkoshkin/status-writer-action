@@ -30,4 +30,4 @@ inputs:
     required: false
 runs:
   using: 'node16'
-  main: 'invoke-binary.js'
+  main: 'index.js'
