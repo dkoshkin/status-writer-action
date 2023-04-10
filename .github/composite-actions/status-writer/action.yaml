@@ -46,8 +46,7 @@ runs:
           mv bin/status-writer-action bin/status-writer-action_linux_amd64
         fi
 
-    - name: Run status-writer-action action locally
-      # always run this step, even if previous steps fail
+    - name: Push job status and other metadata to a remote backend
       uses: ./
       with:
         # select the backend to use
@@ -59,5 +58,5 @@ runs:
         influxdb_bucket: "${{ inputs.influxdb_bucket }}"
         # set the repository, status and additional metadata tags
         repository: "${{ github.repository }}"
-        status: ${{ job.status }}
+        status: "${{ job.status }}"
         tags: "${{ inputs.tags }}"

@@ -35,8 +35,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Run status-writer-action action locally
-      # always run this step, even if previous steps fail
+    - name: Push job status and other metadata to a remote backend
       uses: dkoshkin/status-writer-action@v0.1.0
       with:
         # select the backend to use
@@ -48,5 +47,5 @@ runs:
         influxdb_bucket: "${{ inputs.influxdb_bucket }}"
         # set the repository, status and additional metadata tags
         repository: "${{ github.repository }}"
-        status: ${{ job.status }}
+        status: "${{ job.status }}"
         tags: "${{ inputs.tags }}"

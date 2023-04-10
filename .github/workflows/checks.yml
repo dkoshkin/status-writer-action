@@ -104,8 +104,9 @@ jobs:
         run: |
           ./dist/status-writer-action_linux_amd64_v1/status-writer-action --version
 
-      - name: Run status-writer-action action locally
+      - name: Run status-writer-action with InfluDB
         uses: ./.github/composite-actions/status-writer
+        # always run this step, even if previous steps fail
         if: always()
         with:
           # select the backend to use
