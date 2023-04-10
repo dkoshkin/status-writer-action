@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euox pipefail
+set -euo pipefail
 IFS=$'\n\t'
 
 # This script pushes a tagged artifact to a new release branch.
