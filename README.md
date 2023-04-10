@@ -5,7 +5,10 @@
 
 # GitHub Actions Monitor
 
-Write GitHub Action job status to a remote backend. This project currently supports: [InfluxDB](https://www.influxdata.com/).
+Write GitHub Action job status to a remote backend.
+This project currently supports:
+
+- [InfluxDB](https://www.influxdata.com/).
 
 ## Prerequisites
 
