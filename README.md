@@ -13,29 +13,10 @@ Write GitHub Action job status to a remote backend. This project currently suppo
 
 ## Usage Instructions
 
-Copy the following code snippet into your GitHub Action workflow file, and replace the `backend` and the backend specific variables with your backend of choice.
-Value `tags` is optional, but can be used to add additional metadata to the status.
+See sample workflows in [./.github-sample](./.github-sample)
+that use this GitHub Action as a [composite action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action).
 
-### InfluxDB
-
-```yaml
-      - name: Run status-writer-action action
-        # always run this step, even if previous steps fail
-        if: always()
-        uses: dkoshkin/status-writer-action@release-v0.1.0
-        with:
-          # select the backend to use
-          backend: "influxdb"
-          # set InfluxDB details
-          influxdb_token: "${{ secrets.INFLUXDB_TOKEN }}"
-          influxdb_url: "${{ secrets.INFLUXDB_URL }}"
-          influxdb_org: "${{ secrets.INFLUXDB_ORG }}"
-          influxdb_bucket: "${{ secrets.INFLUXDB_BUCKET }}"
-          # set the status and additional metadata tags
-          repository: "${{ github.repository }}"
-          status: ${{ job.status }}
-          tags: "workflow=${{ github.workflow }},job=${{ github.job }},ref=${{ github.ref_name }}"
-```
+There will be a sample workflow for each supported backend.
 
 ## Setup your Dev Environment
 
