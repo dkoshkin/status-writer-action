@@ -1,7 +1,7 @@
 // Copyright 2023 Dimitri Koshkin. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-package pusher
+package remote
 
 import (
 	"bytes"
@@ -14,9 +14,15 @@ import (
 func TestNewFromInputs(t *testing.T) {
 	// ...
 	actionLog := bytes.NewBuffer(nil)
-	keys := "workflow=checks,job=status-writer-action"
+	tags := "workflow=checks,job=build-and-run"
 	envMap := map[string]string{
-		"INPUT_KEYS": keys,
+		"INPUT_BACKEND":         "influxdb",
+		"INPUT_INFLUXDB_TOKEN":  "token",
+		"INPUT_INFLUXDB_URL":    "http://localhost",
+		"INPUT_INFLUXDB_ORG":    "org",
+		"INPUT_INFLUXDB_BUCKET": "bucket",
+		"INPUT_STATUS":          "success",
+		"INPUT_TAGS":            tags,
 	}
 	getenv := func(key string) string {
 		return envMap[key]
@@ -30,7 +36,7 @@ func TestNewFromInputs(t *testing.T) {
 	assert.Equal(t, "", actionLog.String())
 	expected := map[string]string{
 		"workflow": "checks",
-		"job":      "status-writer-action",
+		"job":      "build-and-run",
 	}
-	assert.Equal(t, cfg.Keys, expected)
+	assert.Equal(t, cfg.Data.Tags, expected)
 }
