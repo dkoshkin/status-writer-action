@@ -1,0 +1,63 @@
+# Copyright 2023 Dimitri Koshkin. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+name: "Write GitHub Action status and metadata to a remote backend"
+description: "A composite GitHub Action to write the status and metadata of a GitHub Action to a remote backend."
+inputs:
+  backend:
+    description: 'The backend to use for pushing metrics, valid values are: influxdb'
+    required: true
+
+  # InfluxDB specific inputs
+  influxdb_token:
+    description: 'The token to use for authentication with the InfluxDB server'
+    required: false
+  influxdb_url:
+    description: 'The URL of the InfluxDB server'
+    required: false
+  influxdb_org:
+    description: 'The InfluxDB organization to use for pushing metrics'
+    required: false
+  influxdb_bucket:
+    description: 'The InfluxDB bucket to use for pushing metrics'
+    required: false
+
+  repository:
+    description: 'The repository name'
+    required: true
+  status:
+    description: 'The status of the action, valid values are: success, failure, cancelled or skipped'
+    required: true
+  tags:
+    description: 'A comma separated list of key=value pairs to be added to the metric'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    # copy the binary to where the GitHub Action expects it
+    - name: Copy binary to bin/
+      shell: bash
+      run: |
+        if [ ! -f bin/status-writer-action_linux_amd64 ]
+        then
+          mkdir -p bin
+          cp dist/status-writer-action_linux_amd64_v1/status-writer-action bin
+          mv bin/status-writer-action bin/status-writer-action_linux_amd64
+        fi
+
+    - name: Run status-writer-action action locally
+      # always run this step, even if previous steps fail
+      uses: ./
+      with:
+        # select the backend to use
+        backend: "${{ inputs.backend }}"
+        # set InfluxDB details
+        influxdb_token: "${{ inputs.influxdb_token }}"
+        influxdb_url: "${{ inputs.influxdb_url }}"
+        influxdb_org: "${{ inputs.influxdb_org }}"
+        influxdb_bucket: "${{ inputs.influxdb_bucket }}"
+        # set the repository, status and additional metadata tags
+        repository: "${{ github.repository }}"
+        status: ${{ job.status }}
+        tags: "${{ inputs.tags }}"

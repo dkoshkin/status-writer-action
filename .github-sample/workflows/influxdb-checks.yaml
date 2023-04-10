@@ -1,0 +1,42 @@
+# Copyright 2023 Dimitri Koshkin. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+name: checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:
+      - main
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Run unit tests
+        run: make test
+
+      - name: Run status-writer-action action locally
+        uses: ./.github/composite-actions/status-writer
+        if: always()
+        with:
+          # select the backend to use
+          backend: "influxdb"
+          # set InfluxDB details
+          influxdb_token: "${{ secrets.INFLUXDB_TOKEN }}"
+          influxdb_url: "${{ secrets.INFLUXDB_URL }}"
+          influxdb_org: "${{ secrets.INFLUXDB_ORG }}"
+          influxdb_bucket: "${{ secrets.INFLUXDB_BUCKET }}"
+          # set the status and additional metadata tags
+          repository: "${{ github.repository }}"
+          status: ${{ job.status }}
+          tags: "workflow=${{ github.workflow }},job=${{ github.job }},ref=${{ github.ref_name }}"

@@ -104,21 +104,9 @@ jobs:
         run: |
           ./dist/status-writer-action_linux_amd64_v1/status-writer-action --version
 
-      # copy the binary to where the GitHub Action expects it
-      - name: Copy binary to bin/
+      - name: Run status-writer-action action locally
+        uses: ./.github/composite-actions/status-writer
         if: always()
-        run: |
-          if [ ! -f bin/status-writer-action_linux_amd64 ]
-          then
-            mkdir -p bin
-            cp dist/status-writer-action_linux_amd64_v1/status-writer-action bin
-            mv bin/status-writer-action bin/status-writer-action_linux_amd64
-          fi
-
-      - name: Run status-writer-action action
-        # always run this step, even if previous steps fail
-        if: always()
-        uses: ./
         with:
           # select the backend to use
           backend: "influxdb"
