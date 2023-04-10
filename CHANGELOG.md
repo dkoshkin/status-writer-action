@@ -1,5 +1,13 @@
 # Changelog
 
+<!-- Release notes generated using configuration in .github/release.yaml at v0.1.0 -->
+
+
+
+**Full Changelog**: https://github.com/dkoshkin/status-writer-action/compare/v0.1.0...v0.1.0
+
+## Changelog
+
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
 
 ## What's Changed
