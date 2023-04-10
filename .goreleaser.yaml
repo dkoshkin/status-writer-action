@@ -19,8 +19,6 @@ changelog:
       - '^build:'
 
 release:
-  header: |
-    See [GitHub Actions release branch](https://github.com/dkoshkin/status-writer-action/tree/release-v{{trimprefix .Version "v"}})
   footer: |
     ### Summary
     **Full Changelog**: https://github.com/dkoshkin/status-writer-action/compare/{{ .PreviousTag }}...{{ .Tag }}
