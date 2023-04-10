@@ -4,9 +4,30 @@
 name: 'Github Actions Monitor'
 description: 'Push github actions status to a monitoring system'
 inputs:
-  keys:
-    description: 'A comma separated list of key=value pairs to be added to the metric'
+  backend:
+    description: 'The backend to use for pushing metrics, valid values are: influxdb'
     required: true
+  influxdb_token:
+    description: 'The token to use for authentication with the InfluxDB server'
+    required: false
+  influxdb_url:
+    description: 'The URL of the InfluxDB server'
+    required: false
+  influxdb_org:
+    description: 'The InfluxDB organization to use for pushing metrics'
+    required: false
+  influxdb_bucket:
+    description: 'The InfluxDB bucket to use for pushing metrics'
+    required: false
+  repository:
+    description: 'The repository name'
+    required: true
+  status:
+    description: 'The status of the action, valid values are: success, failure, cancelled or skipped'
+    required: true
+  tags:
+    description: 'A comma separated list of key=value pairs to be added to the metric'
+    required: false
 runs:
   using: 'node16'
   main: 'invoke-binary.js'

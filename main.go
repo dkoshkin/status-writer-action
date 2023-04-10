@@ -10,7 +10,7 @@ import (
 
 	"github.com/sethvargo/go-githubactions"
 
-	"github.com/dkoshkin/status-writer-action/pkg/pusher"
+	"github.com/dkoshkin/status-writer-action/pkg/remote"
 	"github.com/dkoshkin/status-writer-action/pkg/version"
 )
 
@@ -18,14 +18,21 @@ func run() error {
 	ctx := context.Background()
 	action := githubactions.New()
 
-	cfg, err := pusher.NewFromInputs(action)
+	cfg, err := remote.NewFromInputs(action)
 	if err != nil {
 		//nolint:wrapcheck // we don't want to wrap this error
 		return err
 	}
 
+	var writer remote.Writer
+	//nolint:gocritic // Prefer switch statement over if statement.
+	switch cfg.Backend {
+	case remote.BackendInfluxDB:
+		writer = remote.NewInfluxDBWriter(cfg.InfluxDB)
+	}
+
 	//nolint:wrapcheck // we don't want to wrap this error
-	return pusher.Run(ctx, cfg)
+	return writer.Write(ctx, cfg.Data)
 }
 
 func main() {

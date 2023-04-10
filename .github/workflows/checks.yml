@@ -105,6 +105,18 @@ jobs:
           ./dist/status-writer-action_linux_amd64_v1/status-writer-action --version
 
       - name: Test status-writer-action action
+        # always run this step, even if previous steps fail
+        if: always()
         uses: ./
         with:
-          keys: "workflow=checks,job=build-and-run"
+          # select the backend to use
+          backend: "influxdb"
+          # set InfluxDB details
+          influxdb_token: "${{ secrets.INFLUXDB_TOKEN }}"
+          influxdb_url: "${{ secrets.INFLUXDB_URL }}"
+          influxdb_org: "${{ secrets.INFLUXDB_ORG }}"
+          influxdb_bucket: "${{ secrets.INFLUXDB_BUCKET }}"
+          # set the status and additional metadata tags
+          repository: "${{ github.repository }}"
+          status: ${{ job.status}}
+          tags: "workflow=${{ github.workflow }},job=${{ github.job }},ref=${{ github.ref_name }}"
