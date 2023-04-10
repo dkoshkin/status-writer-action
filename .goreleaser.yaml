@@ -19,9 +19,13 @@ changelog:
       - '^build:'
 
 release:
+  header: |
+    See [GitHub Actions release branch](https://github.com/dkoshkin/status-writer-action/tree/release-v{{trimprefix .Version "v"}})
   footer: |
     ### Summary
     **Full Changelog**: https://github.com/dkoshkin/status-writer-action/compare/{{ .PreviousTag }}...{{ .Tag }}
+  # skip uploading artifacts to GitHub, these are uploaded by the commit-artifact publisher
+  skip_upload: true
 
 builds:
   - id: status-writer-action
@@ -43,17 +47,13 @@ builds:
       - -X {{.Env.GOMODULENAME}}/pkg/version.builtBy=goreleaser
     goos:
       - linux
-      - windows
       - darwin
     goarch:
       - amd64
       - arm64
     mod_timestamp: '{{ .CommitTimestamp }}'
 archives:
-  - name_template: '{{ .ProjectName }}_v{{trimprefix .Version "v"}}_{{ .Os }}_{{ .Arch }}'
-    format_overrides:
-      - goos: windows
-        format: zip
+  - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
     builds:
       - status-writer-action
     rlcp: true
@@ -61,3 +61,12 @@ checksum:
   name_template: 'checksums.txt'
 snapshot:
   name_template: "{{ incminor .Tag }}-dev"
+publishers:
+  - name: commit-artifact
+    cmd: ./hack/commit-artifact.sh v{{trimprefix .Version "v"}} {{ .ArtifactPath }}
+    checksum: false
+    signature: false
+    env:
+      - GITHUB_TOKEN={{.Env.GITHUB_TOKEN}}
+      - GITHUB_ACTOR={{.Env.GITHUB_ACTOR}}
+      - GITHUB_REPOSITORY={{.Env.GITHUB_REPOSITORY}}

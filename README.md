@@ -47,3 +47,11 @@ make build-snapshot
 ```bash
 make pre-commit
 ```
+
+### Update index.js
+
+This GitHub Action uses a javascript wrapper to call the Go binary. To update the wrapper, run:
+
+```bash
+make build-index.js
+```

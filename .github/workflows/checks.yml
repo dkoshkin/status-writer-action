@@ -104,7 +104,18 @@ jobs:
         run: |
           ./dist/status-writer-action_linux_amd64_v1/status-writer-action --version
 
-      - name: Test status-writer-action action
+      # copy the binary to where the GitHub Action expects it
+      - name: Copy binary to bin/
+        if: always()
+        run: |
+          if [ ! -f bin/status-writer-action_linux_amd64 ]
+          then
+            mkdir -p bin
+            cp dist/status-writer-action_linux_amd64_v1/status-writer-action bin
+            mv bin/status-writer-action bin/status-writer-action_linux_amd64
+          fi
+
+      - name: Run status-writer-action action
         # always run this step, even if previous steps fail
         if: always()
         uses: ./
@@ -118,5 +129,5 @@ jobs:
           influxdb_bucket: "${{ secrets.INFLUXDB_BUCKET }}"
           # set the status and additional metadata tags
           repository: "${{ github.repository }}"
-          status: ${{ job.status}}
+          status: ${{ job.status }}
           tags: "workflow=${{ github.workflow }},job=${{ github.job }},ref=${{ github.ref_name }}"
