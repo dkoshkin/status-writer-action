@@ -27,5 +27,6 @@ jobs:
           influxdb_bucket: "${{ secrets.INFLUXDB_BUCKET }}"
           # set the status and additional metadata tags
           repository: "${{ github.repository }}"
+          actor: "${{ github.actor }}"
           status: "${{ job.status }}"
-          tags: "workflow=${{ github.workflow }},job=${{ github.job }},ref=${{ github.ref_name }}"
+          tags: "workflow=${{ github.workflow }},job=${{ github.job }},ref=${{ github.ref_name }},run_number=${{ github.run_number }},run_id=${{ github.run_id }}"

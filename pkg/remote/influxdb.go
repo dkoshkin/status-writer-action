@@ -37,6 +37,7 @@ func (w InfluxDBWriter) Write(ctx context.Context, data Data) error {
 	writeAPI := w.client.WriteAPIBlocking(w.Org, w.Bucket)
 
 	fields := map[string]interface{}{
+		"actor":  data.Actor,
 		"status": data.Status,
 	}
 	point := influxdb2.NewPoint(data.Repository, data.Tags, fields, time.Now())
