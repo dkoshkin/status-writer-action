@@ -10,6 +10,9 @@ ifndef GORELEASER_CURRENT_TAG
 export GORELEASER_CURRENT_TAG=$(GIT_TAG)
 endif
 
+# a stable tag to re-tag the release branches
+STABLE_TAG="alpha"
+
 .PHONY: build-snapshot
 build-snapshot: ## Builds a snapshot with goreleaser
 build-snapshot: install-tool.goreleaser install-tool.golang ; $(info $(M) building snapshot $*)
@@ -30,10 +33,10 @@ release: install-tool.goreleaser install-tool.golang ; $(info $(M) building rele
 		--parallelism=$(GORELEASER_PARALLELISM) \
 		--timeout=60m \
 		$(GORELEASER_FLAGS)
-	# force push the tag on the release branch after committing binaries
+	# force push a stable tag on the release branch after committing binaries
 	# GoReleaser after hooks are a paid feature, doing it here instead
-	# 4 is the number of commits (e.g. binaries) in the release branch
-	./hack/retag-release.sh $(GORELEASER_CURRENT_TAG) 4
+	./hack/retag-release.sh $(STABLE_TAG)
+	./hack/retag-release.sh "$(GORELEASER_CURRENT_TAG)-action"
 
 .PHONY: release-snapshot
 release-snapshot: ## Builds a snapshot release with goreleaser
