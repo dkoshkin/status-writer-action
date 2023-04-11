@@ -4,6 +4,17 @@
 
 ## What's Changed
 ### Other Changes
+* ci: Fix release-checks not checking out repo by @dkoshkin in https://github.com/dkoshkin/status-writer-action/pull/15
+
+
+**Full Changelog**: https://github.com/dkoshkin/status-writer-action/compare/v0.1.1...v0.1.2
+
+## Changelog
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### Other Changes
 * ci: Trigger release-checks workflow by @dkoshkin in https://github.com/dkoshkin/status-writer-action/pull/13
 
 
