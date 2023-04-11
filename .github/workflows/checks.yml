@@ -120,3 +120,19 @@ jobs:
           repository: "${{ github.repository }}"
           status: "${{ job.status }}"
           tags: "workflow=${{ github.workflow }},job=${{ github.job }},ref=${{ github.ref_name }}"
+
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: |
+          echo actor: ${{ github.actor }}
+          echo head_ref: ${{ github.head_ref }}
+          echo job:${{ github.job }}
+          echo ref: ${{ github.ref }}
+          echo repository_owner: ${{ github.repository_owner }}
+          echo run_id: ${{ github.run_id }}
+          echo run_number: ${{ github.run_number }}
+          echo workflow: ${{ github.workflow }}
+          echo job: ${{ github.job }}
+          echo ref_name: ${{ github.ref_name }}
