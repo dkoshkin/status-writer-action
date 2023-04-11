@@ -5,6 +5,8 @@
 
 # GitHub Actions Monitor
 
+[![checks](https://github.com/dkoshkin/status-writer-action/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/dkoshkin/status-writer-action/actions/workflows/checks.yml)
+
 Write GitHub Action job status to a remote backend.
 This project currently supports:
 
