@@ -60,6 +60,7 @@ runs:
         influxdb_org: "${{ inputs.influxdb_org }}"
         influxdb_bucket: "${{ inputs.influxdb_bucket }}"
         # set the repository, status and additional metadata tags
-        repository: "${{ github.repository }}"
-        status: "${{ job.status }}"
+        repository: "${{ inputs.repository }}"
+        actor: "${{ inputs.actor }}"
+        status: "${{ inputs.status }}"
         tags: "${{ inputs.tags }}"
