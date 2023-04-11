@@ -11,6 +11,9 @@ jobs:
   test-with-influxdb:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
       - name: Run status-writer-action action locally
         uses: ./.github/composite-actions/status-writer-released
         if: always()
