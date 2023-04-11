@@ -36,7 +36,7 @@ runs:
   using: "composite"
   steps:
     - name: Push job status and other metadata to a remote backend
-      uses: dkoshkin/status-writer-action@v0.1.0
+      uses: dkoshkin/status-writer-action@alpha
       with:
         # select the backend to use
         backend: "${{ inputs.backend }}"

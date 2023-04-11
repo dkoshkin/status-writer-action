@@ -118,5 +118,5 @@ jobs:
           influxdb_bucket: "${{ secrets.INFLUXDB_BUCKET }}"
           # set the status and additional metadata tags
           repository: "${{ github.repository }}"
-          status: ${{ job.status }}
+          status: "${{ job.status }}"
           tags: "workflow=${{ github.workflow }},job=${{ github.job }},ref=${{ github.ref_name }}"
