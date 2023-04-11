@@ -3,6 +3,19 @@
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
 
 ## What's Changed
+### Exciting New Features 🎉
+* feat: Add actor and run data to send to the backend by @dkoshkin in https://github.com/dkoshkin/status-writer-action/pull/20
+### Fixes 🔧
+* fix: Set actor correctly by @dkoshkin in https://github.com/dkoshkin/status-writer-action/pull/21
+
+
+**Full Changelog**: https://github.com/dkoshkin/status-writer-action/compare/v0.1.2...v0.2.0
+
+## Changelog
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
 ### Other Changes
 * ci: Fix release-checks not checking out repo by @dkoshkin in https://github.com/dkoshkin/status-writer-action/pull/15
 
