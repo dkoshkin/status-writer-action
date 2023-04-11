@@ -36,8 +36,9 @@ Add the following step to your GitHub Action workflows for all jobs that you wou
         influxdb_bucket: "${{ secrets.INFLUXDB_BUCKET }}"
         # set the repository, status and additional metadata tags
         repository: "${{ github.repository }}"
+        actor: "${{ github.actor }}"
         status: "${{ job.status }}"
-        tags: "workflow=${{ github.workflow }},job=${{ github.job }},ref=${{ github.ref_name }}"
+        tags: "workflow=${{ github.workflow }},job=${{ github.job }},ref=${{ github.ref_name }},run_number=${{ github.run_number }},run_id=${{ github.run_id }}"
 ```
 
 See sample workflows in [.github/workflows/release-checks.yaml](.github/workflows/release-checks.yaml)

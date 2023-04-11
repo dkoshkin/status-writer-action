@@ -25,6 +25,9 @@ inputs:
   repository:
     description: 'The repository name'
     required: true
+  actor:
+    description: 'The actor who triggered the action'
+    required: true
   status:
     description: 'The status of the action, valid values are: success, failure, cancelled or skipped'
     required: true

@@ -21,6 +21,8 @@ func TestNewFromInputs(t *testing.T) {
 		"INPUT_INFLUXDB_URL":    "http://localhost",
 		"INPUT_INFLUXDB_ORG":    "org",
 		"INPUT_INFLUXDB_BUCKET": "bucket",
+		"INPUT_REPOSITORY":      "repo",
+		"INPUT_ACTOR":           "actor",
 		"INPUT_STATUS":          "success",
 		"INPUT_TAGS":            tags,
 	}
@@ -38,5 +40,8 @@ func TestNewFromInputs(t *testing.T) {
 		"workflow": "checks",
 		"job":      "build-and-run",
 	}
+	assert.Equal(t, cfg.Data.Repository, "repo")
+	assert.Equal(t, cfg.Data.Actor, "actor")
+	assert.Equal(t, cfg.Data.Status, "success")
 	assert.Equal(t, cfg.Data.Tags, expected)
 }

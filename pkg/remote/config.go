@@ -44,6 +44,7 @@ type Config struct {
 
 type Data struct {
 	Repository string
+	Actor      string
 	Status     string
 
 	Tags map[string]string
@@ -83,6 +84,7 @@ func NewFromInputs(action *githubactions.Action) (*Config, error) {
 	}
 	c.Data = Data{
 		Repository: action.GetInput("repository"),
+		Actor:      action.GetInput("actor"),
 		Status:     action.GetInput("status"),
 		Tags:       kvs,
 	}
