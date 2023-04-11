@@ -29,3 +29,8 @@ jobs:
         run: make release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release-checks:
+    needs: release-tag
+    uses: ./.github/workflows/release-checks.yaml
+    secrets: inherit
