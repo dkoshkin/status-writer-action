@@ -17,6 +17,7 @@ This project currently supports:
 ## Prerequisites
 
 - An existing GitHub Action that you would like write job status to some remote backend.
+- One of the supported backends configured with appropriate credentials.
 
 ## Usage Instructions
 
