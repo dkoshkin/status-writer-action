@@ -17,6 +17,7 @@ This project currently supports:
 ## Prerequisites
 
 - An existing GitHub Action that you would like write job status to some remote backend.
+- One of the supported backends configured with appropriate credentials.
 
 ## Usage Instructions
 
@@ -46,7 +47,13 @@ Add the following step to your GitHub Action workflows for all jobs that you wou
 See sample workflows in [.github/workflows/release-checks.yaml](.github/workflows/release-checks.yaml)
 that use this GitHub Action as a [composite action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action).
 
-There will be a sample workflow for each supported backend.
+### Versioning
+
+This project uses [semantic versioning](https://semver.org/).
+However, the `alpha` tag is used to indicate that the project is still in early development stage.
+Once the project reaches `v1.0.0`, a new `v1` tag will be created and the `alpha` tag will be removed.
+Tags `alpha` and `v1` will be updated to point to the latest release.
+You may also use any of the released tags dirrectly by adding an `action` suffix, for example `v1.0.0-action`.
 
 ## Setup your Dev Environment
 
