@@ -1,0 +1,57 @@
+# Copyright 2023 Dimitri Koshkin. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+name: build-on-macos
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-run:
+    runs-on: macos-latest
+    steps:
+      - uses: ConorMacBride/install-package@v1
+        with:
+          brew: bash coreutils findutils
+
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install tools via asdf
+        uses: asdf-vm/actions/install@v2.1.0
+        with:
+          asdf_branch: v0.11.2
+
+      - name: Build
+        run: make SKIP_UPX=false build-snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run binary
+        run: |
+          ./dist/status-writer-action_darwin_amd64_v1/status-writer-action --version
+
+      - name: Run status-writer-action with InfluxDB
+        uses: ./.github/composite-actions/status-writer
+        # always run this step, even if previous steps fail
+        if: always()
+        with:
+          # select the backend to use
+          backend: "influxdb"
+          # set InfluxDB details
+          influxdb_token: "${{ secrets.INFLUXDB_TOKEN }}"
+          influxdb_url: "${{ secrets.INFLUXDB_URL }}"
+          influxdb_org: "${{ secrets.INFLUXDB_ORG }}"
+          influxdb_bucket: "${{ secrets.INFLUXDB_BUCKET }}"

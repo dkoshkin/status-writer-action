@@ -16,7 +16,7 @@ function chooseBinary() {
         return `bin/status-writer-action_linux_arm64`
     }
     if (platform === 'darwin' && arch === 'x64') {
-        return `bin/status-writer-action_darwin_adm64`
+        return `bin/status-writer-action_darwin_amd64`
     }
     if (platform === 'darwin' && arch === 'arm64') {
         return `bin/status-writer-action_darwin_arm64`

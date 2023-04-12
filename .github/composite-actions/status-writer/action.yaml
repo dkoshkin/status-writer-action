@@ -39,14 +39,26 @@ runs:
   using: "composite"
   steps:
     # copy the binary to where the GitHub Action expects it
-    - name: Copy binary to bin/
+    - name: Copy Linux binary to bin/
       shell: bash
+      if: ${{ runner.os == 'Linux' }}
       run: |
         if [ ! -f bin/status-writer-action_linux_amd64 ]
         then
           mkdir -p bin
           cp dist/status-writer-action_linux_amd64_v1/status-writer-action bin
           mv bin/status-writer-action bin/status-writer-action_linux_amd64
+        fi
+
+    - name: Copy Darwin binary to bin/
+      shell: bash
+      if: ${{ runner.os == 'macOS' }}
+      run: |
+        if [ ! -f bin/status-writer-action_darwin_amd64 ]
+        then
+          mkdir -p bin
+          cp dist/status-writer-action_darwin_amd64_v1/status-writer-action bin
+          mv bin/status-writer-action bin/status-writer-action_darwin_amd64
         fi
 
     - name: Push job status and other metadata to a remote backend
