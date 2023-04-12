@@ -21,26 +21,31 @@ type InfluxDBConfig struct {
 type InfluxDBWriter struct {
 	client influxdb2.Client
 
-	Org    string
-	Bucket string
+	org    string
+	bucket string
 }
 
 func NewInfluxDBWriter(cfg *InfluxDBConfig) Writer {
 	return &InfluxDBWriter{
 		client: influxdb2.NewClient(cfg.URL, cfg.Token),
-		Org:    cfg.Org,
-		Bucket: cfg.Bucket,
+		org:    cfg.Org,
+		bucket: cfg.Bucket,
 	}
 }
 
 func (w InfluxDBWriter) Write(ctx context.Context, data Data) error {
-	writeAPI := w.client.WriteAPIBlocking(w.Org, w.Bucket)
+	writeAPI := w.client.WriteAPIBlocking(w.org, w.bucket)
 
 	fields := map[string]interface{}{
 		"actor":  data.Actor,
 		"status": data.Status,
 	}
-	point := influxdb2.NewPoint(data.Repository, data.Tags, fields, time.Now())
+
+	tagsMap := make(map[string]string)
+	for _, tag := range data.Tags {
+		tagsMap[tag.Key] = tag.Value
+	}
+	point := influxdb2.NewPoint(data.Repository, tagsMap, fields, time.Now())
 
 	if err := writeAPI.WritePoint(ctx, point); err != nil {
 		return fmt.Errorf("error writing data to InfluxDB: %w", err)

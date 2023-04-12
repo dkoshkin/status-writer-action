@@ -36,9 +36,9 @@ func TestNewFromInputs(t *testing.T) {
 	cfg, err := NewFromInputs(action)
 	assert.NoError(t, err)
 	assert.Equal(t, "", actionLog.String())
-	expected := map[string]string{
-		"workflow": "checks",
-		"job":      "build-and-run",
+	expected := []Tag{
+		{Key: "workflow", Value: "checks"},
+		{Key: "job", Value: "build-and-run"},
 	}
 	assert.Equal(t, cfg.Data.Repository, "repo")
 	assert.Equal(t, cfg.Data.Actor, "actor")

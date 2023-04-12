@@ -22,6 +22,11 @@ inputs:
     description: 'The InfluxDB bucket to use for pushing metrics'
     required: false
 
+  # Google Sheets specific inputs
+  googlesheets_spreadsheet_id:
+    description: 'The ID of the Google Sheets spreadsheet to use for pushing metrics'
+    required: false
+
   repository:
     description: 'The repository name'
     required: false
@@ -48,6 +53,8 @@ runs:
         influxdb_url: "${{ inputs.influxdb_url }}"
         influxdb_org: "${{ inputs.influxdb_org }}"
         influxdb_bucket: "${{ inputs.influxdb_bucket }}"
+        # set Google Sheets details
+        googlesheets_spreadsheet_id: "${{ inputs.googlesheets_spreadsheet_id }}"
         repository: "${{ github.repository }}"
         actor: "${{ github.actor }}"
         status: "${{ job.status }}"
