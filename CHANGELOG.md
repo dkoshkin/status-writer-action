@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.1 (2023-04-12)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### Other Changes
+* ci: Simplify writer tasks by @dkoshkin in https://github.com/dkoshkin/status-writer-action/pull/22
+* build: Add additional GHA workflows and make files by @dkoshkin in https://github.com/dkoshkin/status-writer-action/pull/25
+* build: Fix CodeQL dispatch by @dkoshkin in https://github.com/dkoshkin/status-writer-action/pull/26
+
+
+**Full Changelog**: https://github.com/dkoshkin/status-writer-action/compare/v0.2.0...v0.2.1
+
+## Changelog
+
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
 
 ## What's Changed
