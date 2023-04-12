@@ -24,13 +24,13 @@ inputs:
 
   repository:
     description: 'The repository name'
-    required: true
+    required: false
   actor:
     description: 'The actor who triggered the action'
-    required: true
+    required: false
   status:
     description: 'The status of the action, valid values are: success, failure, cancelled or skipped'
-    required: true
+    required: false
   tags:
     description: 'A comma separated list of key=value pairs to be added to the metric'
     required: false
@@ -59,8 +59,7 @@ runs:
         influxdb_url: "${{ inputs.influxdb_url }}"
         influxdb_org: "${{ inputs.influxdb_org }}"
         influxdb_bucket: "${{ inputs.influxdb_bucket }}"
-        # set the repository, status and additional metadata tags
-        repository: "${{ inputs.repository }}"
-        actor: "${{ inputs.actor }}"
-        status: "${{ inputs.status }}"
-        tags: "${{ inputs.tags }}"
+        repository: "${{ github.repository }}"
+        actor: "${{ github.actor }}"
+        status: "${{ job.status }}"
+        tags: "workflow=${{ github.workflow }},job=${{ github.job }},ref=${{ github.ref_name }},run_number=${{ github.run_number }},run_id=${{ github.run_id }}"
