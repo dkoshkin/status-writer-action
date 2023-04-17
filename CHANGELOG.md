@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.0 (2023-04-17)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### Exciting New Features 🎉
+* feat: Add Google Sheets support by @dkoshkin in https://github.com/dkoshkin/status-writer-action/pull/28
+
+
+**Full Changelog**: https://github.com/dkoshkin/status-writer-action/compare/v0.2.1...v0.3.0
+
 ## 0.2.1 (2023-04-12)
 
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
