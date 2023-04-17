@@ -25,10 +25,15 @@ func run() error {
 	}
 
 	var writer remote.Writer
-	//nolint:gocritic // Prefer switch statement over if statement.
+
 	switch cfg.Backend {
 	case remote.BackendInfluxDB:
 		writer = remote.NewInfluxDBWriter(cfg.InfluxDB)
+	case remote.BackendGoogleSheets:
+		writer, err = remote.NewGoogleSheetsWriter(ctx, cfg.GoogleSheets)
+		if err != nil {
+			return fmt.Errorf("error creating Google Sheets writer: %w", err)
+		}
 	}
 
 	//nolint:wrapcheck // we don't want to wrap this error

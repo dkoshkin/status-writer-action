@@ -11,7 +11,7 @@ Write GitHub Action job status to a remote backend.
 This project currently supports:
 
 - [InfluxDB](https://www.influxdata.com/)
-- [Google Sheets](https://www.google.com/sheets/about/) (coming soon)
+- [Google Sheets](https://www.google.com/sheets/about/)
 - [PostgreSQL](https://www.postgresql.org/) (coming soon)
 
 ## Prerequisites

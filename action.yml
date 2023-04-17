@@ -22,6 +22,11 @@ inputs:
     description: 'The InfluxDB bucket to use for pushing metrics'
     required: false
 
+  # Google Sheets specific inputs
+  googlesheets_spreadsheet_id:
+    description: 'The ID of the Google Sheets spreadsheet to use for pushing metrics'
+    required: false
+
   repository:
     description: 'The repository name'
     required: true

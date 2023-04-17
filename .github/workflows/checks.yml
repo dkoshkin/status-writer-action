@@ -104,6 +104,20 @@ jobs:
         run: |
           ./dist/status-writer-action_linux_amd64_v1/status-writer-action --version
 
+  run-with-influxdb:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install tools via asdf
+        uses: asdf-vm/actions/install@v2.1.0
+        with:
+          asdf_branch: v0.11.2
+
+      - name: Build
+        run: make build-snapshot
+
       - name: Run status-writer-action with InfluxDB
         uses: ./.github/composite-actions/status-writer
         # always run this step, even if previous steps fail
@@ -116,3 +130,35 @@ jobs:
           influxdb_url: "${{ secrets.INFLUXDB_URL }}"
           influxdb_org: "${{ secrets.INFLUXDB_ORG }}"
           influxdb_bucket: "${{ secrets.INFLUXDB_BUCKET }}"
+
+  run-with-googlesheets:
+    runs-on: ubuntu-latest
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS: client_secret.json
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install tools via asdf
+        uses: asdf-vm/actions/install@v2.1.0
+        with:
+          asdf_branch: v0.11.2
+
+      - name: Build
+        run: make build-snapshot
+
+      - name: Write Google Cloud credentials to file
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}"
+          json: "${{ secrets.GOOGLE_CREDENTIALS }}"
+
+      - name: Run status-writer-action with Google Sheets
+        uses: ./.github/composite-actions/status-writer
+        # always run this step, even if previous steps fail
+        if: always()
+        with:
+          # select the backend to use
+          backend: "googlesheets"
+          # set Google Sheets details
+          googlesheets_spreadsheet_id: "${{ secrets.GOOGLESHEETS_SPREADSHEET_ID }}"

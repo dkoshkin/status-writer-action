@@ -14,30 +14,34 @@ import (
 type Backend int
 
 func (s Backend) String() string {
-	//nolint:gocritic // Prefer switch statement over if statement.
 	switch s {
 	case BackendInfluxDB:
 		return "influxdb"
+	case BackendGoogleSheets:
+		return "googlesheets"
 	}
 	return "unknown"
 }
 
 func StringToBackend(in string) Backend {
-	//nolint:gocritic // Prefer switch statement over if statement.
 	switch in {
 	case "influxdb":
 		return BackendInfluxDB
+	case "googlesheets":
+		return BackendGoogleSheets
 	}
 	return -1
 }
 
 const (
 	BackendInfluxDB Backend = iota
+	BackendGoogleSheets
 )
 
 type Config struct {
-	Backend  Backend
-	InfluxDB *InfluxDBConfig
+	Backend      Backend
+	InfluxDB     *InfluxDBConfig
+	GoogleSheets *GoogleSheetsConfig
 
 	Data Data
 }
@@ -47,7 +51,12 @@ type Data struct {
 	Actor      string
 	Status     string
 
-	Tags map[string]string
+	Tags []Tag
+}
+
+type Tag struct {
+	Key   string
+	Value string
 }
 
 type ValueMustBeSetError struct {
@@ -68,7 +77,6 @@ func NewFromInputs(action *githubactions.Action) (*Config, error) {
 	}
 	c.Backend = backend
 
-	//nolint:gocritic // Prefer switch statement over if statement.
 	switch backend {
 	case BackendInfluxDB:
 		influxDBConfig, backendErr := toInfluxDBConfig(action)
@@ -76,9 +84,15 @@ func NewFromInputs(action *githubactions.Action) (*Config, error) {
 			return nil, backendErr
 		}
 		c.InfluxDB = influxDBConfig
+	case BackendGoogleSheets:
+		googleSheetsConfig, backendErr := toGoogleSheetsConfig(action)
+		if backendErr != nil {
+			return nil, backendErr
+		}
+		c.GoogleSheets = googleSheetsConfig
 	}
 
-	kvs, err := toTagsMap(action)
+	kvs, err := toTagsSlice(action)
 	if err != nil {
 		return nil, err
 	}
@@ -129,12 +143,24 @@ func toInfluxDBConfig(action *githubactions.Action) (*InfluxDBConfig, error) {
 	}, nil
 }
 
-func toTagsMap(action *githubactions.Action) (map[string]string, error) {
+func toGoogleSheetsConfig(action *githubactions.Action) (*GoogleSheetsConfig, error) {
+	spreadsheetID := action.GetInput("googlesheets_spreadsheet_id")
+	if spreadsheetID == "" {
+		return nil, &ValueMustBeSetError{"googlesheets_spreadsheet_id"}
+	}
+
+	return &GoogleSheetsConfig{
+		SpreadsheetID: spreadsheetID,
+	}, nil
+}
+
+func toTagsSlice(action *githubactions.Action) ([]Tag, error) {
 	tagsString := action.GetInput("tags")
 	// spit tags on a comma
-	tags := strings.Split(tagsString, ",")
+	tagsStrings := strings.Split(tagsString, ",")
+	tags := make([]Tag, 0, len(tagsStrings))
 	kvs := make(map[string]string)
-	for _, kv := range tags {
+	for _, kv := range tagsStrings {
 		// split on an eqauls sign
 		kv := strings.Split(kv, "=")
 		//nolint:gomnd // No need to use a constant.
@@ -151,7 +177,8 @@ func toTagsMap(action *githubactions.Action) (map[string]string, error) {
 			return nil, fmt.Errorf("tag %s is already set", k)
 		}
 		kvs[k] = v
+		tags = append(tags, Tag{Key: k, Value: v})
 	}
 
-	return kvs, nil
+	return tags, nil
 }
