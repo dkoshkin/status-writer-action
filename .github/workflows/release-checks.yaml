@@ -28,6 +28,8 @@ jobs:
 
   test-with-googlesheets:
     runs-on: ubuntu-latest
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS: client_secret.json
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -35,7 +37,7 @@ jobs:
       - name: Write Google Cloud credentials to file
         uses: jsdaniell/create-json@v1.2.2
         with:
-          name: "client_secret.json"
+          name: "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}"
           json: "${{ secrets.GOOGLE_CREDENTIALS }}"
 
       - name: Run status-writer-action action locally

@@ -30,7 +30,7 @@ func run() error {
 	case remote.BackendInfluxDB:
 		writer = remote.NewInfluxDBWriter(cfg.InfluxDB)
 	case remote.BackendGoogleSheets:
-		writer, err = remote.NewGoogleSheetsWriter(cfg.GoogleSheets)
+		writer, err = remote.NewGoogleSheetsWriter(ctx, cfg.GoogleSheets)
 		if err != nil {
 			return fmt.Errorf("error creating Google Sheets writer: %w", err)
 		}

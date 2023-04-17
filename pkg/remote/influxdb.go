@@ -6,7 +6,6 @@ package remote
 import (
 	"context"
 	"fmt"
-	"time"
 
 	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
 )
@@ -45,7 +44,7 @@ func (w InfluxDBWriter) Write(ctx context.Context, data Data) error {
 	for _, tag := range data.Tags {
 		tagsMap[tag.Key] = tag.Value
 	}
-	point := influxdb2.NewPoint(data.Repository, tagsMap, fields, time.Now())
+	point := influxdb2.NewPoint(data.Repository, tagsMap, fields, timestamp())
 
 	if err := writeAPI.WritePoint(ctx, point); err != nil {
 		return fmt.Errorf("error writing data to InfluxDB: %w", err)
