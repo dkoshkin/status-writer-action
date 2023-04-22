@@ -78,7 +78,7 @@ linters-settings:
       - Standard
       - Default
       - Prefix(github.com/dkoshkin)
-      - Prefix(github.com/dkoshkin/exec-assistant)
+      - Prefix(github.com/dkoshkin/status-writer-action)
   gocritic:
     enabled-tags:
       - diagnostic
