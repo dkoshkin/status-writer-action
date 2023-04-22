@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.1 (2023-04-22)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### Other Changes
+* ci: Add actions-template-sync by @dkoshkin in https://github.com/dkoshkin/status-writer-action/pull/30
+* ci: Use a PAT for template-sync by @dkoshkin in https://github.com/dkoshkin/status-writer-action/pull/32
+* ci: Revert template sync by @dkoshkin in https://github.com/dkoshkin/status-writer-action/pull/33
+
+
+**Full Changelog**: https://github.com/dkoshkin/status-writer-action/compare/v0.3.0...v0.3.1
+
 ## 0.3.0 (2023-04-17)
 
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
