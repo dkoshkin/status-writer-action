@@ -7,7 +7,7 @@ go 1.20
 
 require (
 	github.com/influxdata/influxdb-client-go/v2 v2.13.0
-	github.com/sethvargo/go-githubactions v1.1.0
+	github.com/sethvargo/go-githubactions v1.2.0
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/oauth2 v0.15.0
 	google.golang.org/api v0.155.0
@@ -30,7 +30,6 @@ require (
 	github.com/influxdata/line-protocol v0.0.0-20200327222509-2487e7298839 // indirect
 	github.com/oapi-codegen/runtime v1.0.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/sethvargo/go-envconfig v0.8.0 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.46.1 // indirect
 	go.opentelemetry.io/otel v1.21.0 // indirect
