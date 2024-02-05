@@ -148,7 +148,7 @@ jobs:
         run: make build-snapshot
 
       - name: Write Google Cloud credentials to file
-        uses: jsdaniell/create-json@v1.2.2
+        uses: jsdaniell/create-json@v1.2.3
         with:
           name: "${{ env.GOOGLE_APPLICATION_CREDENTIALS }}"
           json: "${{ secrets.GOOGLE_CREDENTIALS }}"
