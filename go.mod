@@ -10,7 +10,7 @@ require (
 	github.com/sethvargo/go-githubactions v1.2.0
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/oauth2 v0.16.0
-	google.golang.org/api v0.159.0
+	google.golang.org/api v0.161.0
 )
 
 require (
